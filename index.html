@@ -6,6 +6,8 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Проектная работа 4</title>
+  <link data-react-helmet="true" href="//praktikum.s3.yandex.net/praktikum/v0.186.21-1634824129/static/favicon.png"
+    rel="shortcut icon" type="image/x-icon">
   <link rel="stylesheet" href="./pages/index.css">
 </head>
 
@@ -74,9 +76,21 @@
       </section>
     </main>
     <footer class="footer">
-
+      <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
     </footer>
+    <section class="popup">
+      <div class="popup__container">
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form class="popup__form">
+          <input name="popup__name" type="text" class="popup__input popup__name" value="">
+          <input name="popup__job" type="text" class="popup__input popup__job" value="">
+          <button type="submit" class="popup__button">Сохранить</button>
+        </form>
+        <div class="popup__close"></div>
+      </div>
+    </section>
   </div>
+  <script src="./scripts/script.js"></script>
 </body>
 
 </html>
