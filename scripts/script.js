@@ -1,9 +1,11 @@
-let addButton = document.querySelector('.profile__add-button');
-let editButton = document.querySelector('.profile__edit-button');
-let popup = document.querySelector('.popup');
-let closeButton = document.querySelector('.popup__close');
+const addButton = document.querySelector('.profile__add-button');
+const editButton = document.querySelector('.profile__edit-button');
+const popup = document.querySelector('.popup');
+const closeButton = document.querySelector('.popup__close');
+let heart = document.querySelectorAll('.elements__heart');
 let nameProfile = document.querySelector('.profile__name');
 let jobProfile = document.querySelector('.profile__job');
+
 function openPopup() {
   popup.classList.add('popup_opened');
 }
