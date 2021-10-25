@@ -16,61 +16,59 @@
     </header>
     <main class="main">
       <section class="profile">
-        <div class="profile__avatar">
-          <img src="./images/avatar.jpg" alt="Аватарка" class="profile__image">
-        </div>
+        <img src="./images/avatar.jpg" alt="Аватарка" class="profile__image">
         <div class="profile__info">
           <div class="profile__edit-block">
             <h1 class="profile__name">Жак-Ив Кусто</h1>
-            <button class="profile__edit-button"></button>
+            <button type="button" class="profile__edit-button" aria-label="Edit profile"></button>
           </div>
           <p class="profile__job">Исследователь океана</p>
         </div>
-        <button class="profile__add-button"></button>
+        <button type="button" class="profile__add-button" aria-label="Add image"></button>
       </section>
       <section class="elements">
-        <figure class="elements__element">
+        <div class="elements__element">
           <img class="elements__image" src="./images/karachaevsk.jpg" alt="Карачаевск">
-          <figcaption class="elements__caption">
+          <div class="elements__caption">
             <h2 class="elements__title">Карачаевск</h2>
-            <button type="button" class="elements__heart"></button>
-          </figcaption>
-        </figure>
-        <figure class="elements__element">
+            <button type="button" class="elements__heart" aria-label="Like"></button>
+          </div>
+        </div>
+        <div class="elements__element">
           <img class="elements__image" src="./images/elbrus-first.jpg" alt="Гора Эльбрус">
-          <figcaption class="elements__caption">
+          <div class="elements__caption">
             <h2 class="elements__title">Гора Эльбрус</h2>
-            <button type="button" class="elements__heart"></button>
-          </figcaption>
-        </figure>
-        <figure class="elements__element">
+            <button type="button" class="elements__heart" aria-label="Like"></button>
+          </div>
+        </div>
+        <div class="elements__element">
           <img class="elements__image" src="./images/dombai-first.jpg" alt="Домбай">
-          <figcaption class="elements__caption">
+          <div class="elements__caption">
             <h2 class="elements__title">Домбай</h2>
-            <button type="button" class="elements__heart"></button>
-          </figcaption>
-        </figure>
-        <figure class="elements__element">
+            <button type="button" class="elements__heart" aria-label="Like"></button>
+          </div>
+        </div>
+        <div class="elements__element">
           <img class="elements__image" src="./images/elbrus.jpg" alt="Гора Эльбрус">
-          <figcaption class="elements__caption">
+          <div class="elements__caption">
             <h2 class="elements__title">Гора Эльбрус</h2>
-            <button type="button" class="elements__heart"></button>
-          </figcaption>
-        </figure>
-        <figure class="elements__element">
+            <button type="button" class="elements__heart" aria-label="Like"></button>
+          </div>
+        </div>
+        <div class="elements__element">
           <img class="elements__image" src="./images/dombai.jpg" alt="Домбай">
-          <figcaption class="elements__caption">
+          <div class="elements__caption">
             <h2 class="elements__title">Домбай</h2>
-            <button type="button" class="elements__heart"></button>
-          </figcaption>
-        </figure>
-        <figure class="elements__element">
+            <button type="button" class="elements__heart" aria-label="Like"></button>
+          </div>
+        </div>
+        <div class="elements__element">
           <img class="elements__image" src="./images/karachaevo.jpg" alt="Карачаево-Черкесия">
-          <figcaption class="elements__caption">
+          <div class="elements__caption">
             <h2 class="elements__title">Карачаево-Черкесия</h2>
-            <button type="button" class="elements__heart"></button>
-          </figcaption>
-        </figure>
+            <button type="button" class="elements__heart" aria-label="Like"></button>
+          </div>
+        </div>
       </section>
     </main>
     <footer class="footer">
@@ -79,12 +77,12 @@
     <section class="popup">
       <div class="popup__container">
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form class="popup__form">
-          <input name="popup__name" type="text" class="popup__input popup__name" value="">
-          <input name="popup__job" type="text" class="popup__input popup__job" value="">
+        <form class="popup__form" name="profile-edit-form">
+          <input name="popup__name" type="text" class="popup__input popup_input_name" value="">
+          <input name="popup__job" type="text" class="popup__input popup_input_job" value="">
           <button type="submit" class="popup__button">Сохранить</button>
         </form>
-        <div class="popup__close"></div>
+        <button class="popup__close" type="button"></button>
       </div>
     </section>
   </div>
