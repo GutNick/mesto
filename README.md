@@ -6,6 +6,10 @@
 ## Планы по доработке
 Реализовать возможность добавления изображений в 5 спринте
 
+## Update
+После прохождения 5 спринта реализованы планы выше с помощью JavaScript. Так же добален функцинал удаления, лайка и открытия изображений карточек в попапе.
+
 ## Ссылки
-1. [Макет Figma](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+1. [Макет Figma 4 спринт](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1)
+2. [Макет Figma 5 спринт](https://www.figma.com/file/bjyvbKKJN2naO0ucURl2Z0/JavaScript.-Sprint-5?node-id=0%3A1)
 2. [Url проекта на github.io](https://gutnick.github.io/mesto/)
