@@ -14,11 +14,38 @@ let jobInput = popupProfile.querySelector('input[name="popup__job"]');
 const elementBlock = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content;
 
-initialCards.forEach((element) => {
-    const card = createCard(element.link, element.name);
-    renderCard(card);
-})
+function profileCheck() {
+    if (nameInput.value !== nameProfile.textContent && jobInput.value !== jobProfile.textContent) {
+        nameInput.value = nameProfile.textContent;
+        jobInput.value = jobProfile.textContent;
+    }
+}
 
+function openPopup(element) {
+    element.classList.add('popup_opened');
+}
+
+function closePopup(element) {
+    element.classList.remove('popup_opened');
+}
+
+function submitProfileForm(evt) {
+    evt.preventDefault();
+
+    nameProfile.textContent = nameInput.value;
+    jobProfile.textContent = jobInput.value;
+
+    closePopup(popupProfile)
+}
+
+function imagePopup(evt) {
+    const srcValue = evt.target.src;
+    const caption = evt.target.alt;
+    popupImage.querySelector('.popup__image').src = srcValue;
+    popupImage.querySelector('.popup__image').alt = caption;
+    popupImage.querySelector('.popup__caption').textContent = caption;
+    openPopup(popupImage);
+}
 function createCard(srcValue, titleValue) {
     const cardElement = cardTemplate.querySelector('.elements__element').cloneNode(true);
     const cardImage = cardElement.querySelector('.elements__image');
@@ -38,33 +65,6 @@ function createCard(srcValue, titleValue) {
 function renderCard(card) {
     elementBlock.prepend(card);
 }
-function profileCheck() {
-    if (nameInput.value !== nameProfile.textContent && jobInput.value !== jobProfile.textContent) {
-        nameInput.value = nameProfile.textContent;
-        jobInput.value = jobProfile.textContent;
-    }
-}
-
-function openPopup(element) {
-    element.classList.add('popup_opened');
-}
-
-function closePopup(element) {
-    element.classList.remove('popup_opened');
-}
-
-function submitProfileForm(evt) {
-    evt.preventDefault();
-    nameInput = popupProfile.querySelector('input[name="popup__name"]').value;
-
-    jobInput = popupProfile.querySelector('input[name="popup__job"]').value;
-
-    nameProfile.textContent = nameInput;
-    jobProfile.textContent = jobInput;
-
-    closePopup(popupProfile)
-}
-
 function addCardPopup(evt) {
     evt.preventDefault();
     const placeInput = popupAddCard.querySelector('input[name="popup__place"]').value;
@@ -75,16 +75,10 @@ function addCardPopup(evt) {
     popupAddCard.querySelector('input[name="popup__place"]').value = '';
     popupAddCard.querySelector('input[name="popup__src"]').value = '';
 }
-
-function imagePopup(evt) {
-    const srcValue = evt.target.src;
-    const caption = evt.target.alt;
-    popupImage.querySelector('.popup__image').src = srcValue;
-    popupImage.querySelector('.popup__image').alt = caption;
-    popupImage.querySelector('.popup__caption').textContent = caption;
-    openPopup(popupImage);
-}
-
+initialCards.forEach((element) => {
+    const card = createCard(element.link, element.name);
+    renderCard(card);
+})
 editButton.addEventListener('click', () => {
     openPopup(popupProfile);
     profileCheck();
