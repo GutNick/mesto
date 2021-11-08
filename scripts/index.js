@@ -8,17 +8,14 @@ const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__job');
 const formProfileElement = popupProfile.querySelector('.popup__form');
 const formElementCard = popupAddCard.querySelector('.popup__form');
-//Несмотря на критическое замечание объявить все переменные через const, так как они нигде не перезаписываются, переменные ниже перезаписываются в функции смены имени и профессии. Остальные переназначил через const.
-let nameInput = popupProfile.querySelector('input[name="popup__name"]');
-let jobInput = popupProfile.querySelector('input[name="popup__job"]');
+const nameInput = popupProfile.querySelector('input[name="popup__name"]');
+const jobInput = popupProfile.querySelector('input[name="popup__job"]');
 const elementBlock = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content;
 
 function profileCheck() {
-    if (nameInput.value !== nameProfile.textContent && jobInput.value !== jobProfile.textContent) {
         nameInput.value = nameProfile.textContent;
         jobInput.value = jobProfile.textContent;
-    }
 }
 
 function openPopup(element) {
