@@ -2,8 +2,8 @@
     color: #FF0000;
     display: block;
     box-sizing: border-box;
-    height: 12px;
-    margin: 5px 0 13px;
+    min-height: 25px;
+    margin: 5px 0 0;
     font-family: 'Inter', 'Arial', sans-serif;
     font-style: normal;
     font-weight: 400;
