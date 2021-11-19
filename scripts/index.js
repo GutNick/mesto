@@ -1,3 +1,5 @@
+//Надеюсь сделал все правильно :-)
+import { initialCards } from "../utils/initialCards.js";
 const addButton = document.querySelector('.profile__add-button');
 const editButton = document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('.popup_type_profile');
@@ -8,12 +10,12 @@ const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__job');
 const formProfileElement = popupProfile.querySelector('.popup__form');
 const formElementCard = popupAddCard.querySelector('.popup__form');
-const nameInput = popupProfile.querySelector('input[name="popup__name"]');
-const jobInput = popupProfile.querySelector('input[name="popup__job"]');
+const nameInput = document.getElementById('name-card');
+const jobInput = document.getElementById('job');
 const elementBlock = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content;
 
-function profileCheck() {
+function insertProfileValues() {
     nameInput.value = nameProfile.textContent;
     jobInput.value = jobProfile.textContent;
 }
@@ -24,6 +26,15 @@ function openPopup(element) {
 }
 
 function closePopup(element) {
+    const form = element.querySelector('.popup__form');
+    if (form !== null) {
+        form.reset();
+        toggleButton(form, obj);
+        const errorMessage = element.querySelectorAll('.error');
+        errorMessage.forEach((message) => {
+            message.textContent = '';
+        })
+    }
     element.classList.remove('popup_opened');
     document.removeEventListener('keydown', closePopupEsc);
 }
@@ -36,12 +47,19 @@ function submitProfileForm(evt) {
 
     closePopup(popupProfile)
 }
-
-function imagePopup(evt) {
+const handleLikeButton = (evt) => {
+    evt.target.classList.toggle('elements__heart_active');
+}
+const handleTrashButton = (evt) => {
+    const card = evt.target.closest('.elements__element');
+    card.remove();
+}
+function handleImagePopup(evt) {
     const srcValue = evt.target.src;
     const caption = evt.target.alt;
-    popupImage.querySelector('.popup__image').src = srcValue;
-    popupImage.querySelector('.popup__image').alt = caption;
+    const image = popupImage.querySelector('.popup__image');
+    image.src = srcValue;
+    image.alt = caption;
     popupImage.querySelector('.popup__caption').textContent = caption;
     openPopup(popupImage);
 }
@@ -51,14 +69,9 @@ function createCard(srcValue, titleValue) {
     cardImage.src = srcValue;
     cardImage.alt = titleValue;
     cardElement.querySelector('.elements__title').textContent = titleValue;
-    cardElement.querySelector('.elements__heart').addEventListener('click', function (evt) {
-        evt.target.classList.toggle('elements__heart_active');
-    });
-    cardElement.querySelector('.elements__trash').addEventListener('click', (evt) => {
-        const card = evt.target.closest('.elements__element');
-        card.remove();
-    });
-    cardImage.addEventListener('click', imagePopup);
+    cardElement.querySelector('.elements__heart').addEventListener('click', handleLikeButton);
+    cardElement.querySelector('.elements__trash').addEventListener('click', handleTrashButton);
+    cardImage.addEventListener('click', handleImagePopup);
     return cardElement;
 }
 function renderCard(card) {
@@ -66,13 +79,13 @@ function renderCard(card) {
 }
 function addCardPopup(evt) {
     evt.preventDefault();
-    const placeInput = popupAddCard.querySelector('input[name="popup__place"]').value;
-    const srcInput = popupAddCard.querySelector('input[name="popup__src"]').value;
+    const placeInput = document.getElementById('place-name').value;
+    const srcInput = document.getElementById('place-url').value;
     const card = createCard(srcInput, placeInput);
     renderCard(card);
     closePopup(popupAddCard);
-    popupAddCard.querySelector('input[name="popup__place"]').value = '';
-    popupAddCard.querySelector('input[name="popup__src"]').value = '';
+    placeInput.value = '';
+    srcInput.value = '';
 }
 function closePopupEsc(element, evt) {
     if (evt.key === 'Escape') {
@@ -90,7 +103,7 @@ initialCards.forEach((element) => {
 })
 editButton.addEventListener('click', () => {
     openPopup(popupProfile);
-    profileCheck();
+    insertProfileValues();
 })
 closeButtons.forEach((button) => {
     button.addEventListener('click', (evt) => {
