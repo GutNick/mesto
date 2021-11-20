@@ -10,11 +10,12 @@ const nameProfile = document.querySelector('.profile__name');
 const jobProfile = document.querySelector('.profile__job');
 const formProfileElement = popupProfile.querySelector('.popup__form');
 const formElementCard = popupAddCard.querySelector('.popup__form');
-const nameInput = document.getElementById('name-card');
-const jobInput = document.getElementById('job');
+const nameInput = popupProfile.querySelector('#name-card');
+const jobInput = popupProfile.querySelector('#job');
+const placeInput = formElementCard.querySelector('#place-name');
+const srcInput = formElementCard.querySelector('#place-url');
 const elementBlock = document.querySelector('.elements');
 const cardTemplate = document.querySelector('#card-template').content;
-
 function insertProfileValues() {
     nameInput.value = nameProfile.textContent;
     jobInput.value = jobProfile.textContent;
@@ -79,9 +80,7 @@ function renderCard(card) {
 }
 function addCardPopup(evt) {
     evt.preventDefault();
-    const placeInput = document.getElementById('place-name').value;
-    const srcInput = document.getElementById('place-url').value;
-    const card = createCard(srcInput, placeInput);
+    const card = createCard(srcInput.value, placeInput.value);
     renderCard(card);
     closePopup(popupAddCard);
     placeInput.value = '';
