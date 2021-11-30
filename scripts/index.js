@@ -1,5 +1,5 @@
 import { initialCards } from "../utils/initialCards.js";// Импортируем массив с объектами карточек
-import { Card } from './Card.js';
+import { Card } from './Card.js';// Импортируем класс Card для создания новых карточек
 const addButton = document.querySelector('.profile__add-button');// Находим кнопку добавить карточку и помещаем в константу addButton
 const editButton = document.querySelector('.profile__edit-button');// Находим кнопку редактировать профиль и помещаем в константу editButton
 const popupProfile = document.querySelector('.popup_type_profile');// Находим попап редактирования профиля и помещаем в константу popupProfile
