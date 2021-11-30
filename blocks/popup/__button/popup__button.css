@@ -19,7 +19,6 @@
 }
 
 .popup__button:disabled {
-  padding: 13px 123px 17px 124px;
   color: #000000;
   border: 1px solid #000000;
   box-sizing: border-box;

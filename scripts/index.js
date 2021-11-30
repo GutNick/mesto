@@ -1,9 +1,10 @@
 import { initialCards } from "../utils/initialCards.js";// Импортируем массив с объектами карточек
+import { Card } from './Card.js';
 const addButton = document.querySelector('.profile__add-button');// Находим кнопку добавить карточку и помещаем в константу addButton
 const editButton = document.querySelector('.profile__edit-button');// Находим кнопку редактировать профиль и помещаем в константу editButton
 const popupProfile = document.querySelector('.popup_type_profile');// Находим попап редактирования профиля и помещаем в константу popupProfile
 const popupAddCard = document.querySelector('.popup_type_card-add');// Находим попап добавления карточек и помещаем в константу popupAddCard
-const popupImage = document.querySelector('.popup_type_image');// Находим попап изображения карточки и помещаем в константу popupAddCard
+export const popupImage = document.querySelector('.popup_type_image');// Находим попап изображения карточки и помещаем в константу popupAddCard
 const closeButtons = document.querySelectorAll('.popup__close');// Находим все кнопки закрыть попап в псевдомассив и помещаем их в константу closeButtons
 const nameProfile = document.querySelector('.profile__name');// Находим Имя в карточке пользователя и помещаем его в константу nameProfile
 const jobProfile = document.querySelector('.profile__job');// Находим Профессию в карточке пользователя и помещаем её в константу jobProfile
@@ -13,15 +14,13 @@ const nameInput = popupProfile.querySelector('#name-card');// находим inp
 const jobInput = popupProfile.querySelector('#job');// находим input поле профессия в попапе редактирования профиля и помещаем в константу jobInput
 const placeInput = formElementCard.querySelector('#place-name');// находим input поле названия места в попапе добавления карточек и помещаем в константу placeInput
 const srcInput = formElementCard.querySelector('#place-url');// находим input поле ссылки на изображение в попапе добавления карточек и помещаем в константу srcInput
-const elementBlock = document.querySelector('.elements');// находим контейнер для карточе и помещаем в константу elementBlock
-const cardTemplate = document.querySelector('#card-template').content;// находим содержимое шаблона карточек с помощью .content и помещаем в константу cardTemplate
 // Функция присвоения значениям полей имени и профессии попапа редактирования профиля содержимого блоков имени и профессии блока профиля
 function insertProfileValues() {
     nameInput.value = nameProfile.textContent;// присвоение имени
     jobInput.value = jobProfile.textContent;// присвоение профессии
 }
 // функция открытия попап, получает параметр - элемент
-function openPopup(element) {
+export function openPopup(element) {
     element.classList.add('popup_opened');// добавляет полученному элементу класс popup_opened
     document.addEventListener('keydown', (evt) => closePopupEsc(element, evt));//добавляем странице слушателя событий (нажатие клавишы, событие) - стрелочная функция - функция closePopupEsc с параметрами элемент и нажатая клавиша
 }
@@ -49,75 +48,54 @@ function submitProfileForm(evt) { //принимает событие
     closePopup(popupProfile)// вызываем функцию закрытия попапа с параметром popupProfile содержащим попап профиля
 }
 
-const handleLikeButton = (evt) => { // создаем константу handleLikeButton равную стрелочной функции с параметром событие
-    evt.target.classList.toggle('elements__heart_active');// добавляем или убираем класс elements__heart_active из цели события
+//функция вставки элемента переданного параметром card
+function renderCard(item) {
+    const card = new Card(item).createCard()
+    document.querySelector('.elements').prepend(card);//вставляем переданный элемент в блок с карточками через константу elementBlock в начало списка с помощью метода prepend()
 }
-const handleTrashButton = (evt) => { // создаем константу handleTrashButton равную стрелочной функции с параметром событие
-    const card = evt.target.closest('.elements__element'); // объявляем константу card равную ближайшему к цели события элементу с классом elements__element
-    card.remove();//вызываем функцию remove к константе card (удаляем карточку)
+//Функция добавления карточки места из формы
+function addCardPopup(evt) {//принимает в параметры событие (нажатие submit)
+    evt.preventDefault();//отключаем стандартное поведение для формы при событии
+    const card = {name: placeInput.value, link: srcInput.value};// создаем константу card и помещаем туда функцию createCard с параметрами значений полей названия места и ссылки на изображение из формы (т.е. получаем готовую карточку)
+    renderCard(card);//передаем готовуею карточку через константу в функцию renderCard
+    closePopup(popupAddCard);// закрываем попап добавления карточки с помощью функции closePopup передав параметом константу содержащую попап добавления карточки
+    placeInput.value = '';//очищаем поле названия в форме попапа
+    srcInput.value = '';//очищаем поле ссылки в форме попапа
 }
-//Функция открытия попапа с изображением принимающую событие как параметр
-function handleImagePopup(evt) {
-    const srcValue = evt.target.src;// получаем значение атрибута src цели события и присваеваем его константе srcValue
-    const caption = evt.target.alt;// получаем значение атрибута alt цели события и присваеваем его константе caption
-    const image = popupImage.querySelector('.popup__image');// находим блок с классом popup__image в попапе изображения и присваеваем его константе image
-    image.src = srcValue;//атрибуту src элементу в константе image присваеваем полученное значение из атрибута src цели события через константу srcValue
-    image.alt = caption;//атрибуту alt элементу в константе image присваеваем полученное значение из атрибута alt цели события через константу caption
-    popupImage.querySelector('.popup__caption').textContent = caption;// находим текстовое содержимое блока с классом popup__caption в попапе изображения и присваеваем ему значение константы caption
-    openPopup(popupImage);//запускаем функцию открытия попапа передав параметром константу с попапом изображения
-}
-//Функция создания карточки места, принимает параметрами два значения srcValue и titleValue
-function createCard(srcValue, titleValue) {
-    const cardElement = cardTemplate.cloneNode(true);//клонируем содержимое константы cardTemplate с дочерними элементами(true) и присваеваем полученный элемент константе cardElement
-    const cardImage = cardElement.querySelector('.elements__image');//Находим в cardElement блок с классом elements__image и присваеваем блок константе cardImage
-    cardImage.src = srcValue;//атрибуту src элементу в константе cardImage присваеваем полученное значение из атрибута src элемента переданного через параметр srcValue
-    cardImage.alt = titleValue;//атрибуту alt элементу в константе cardImage присваеваем полученное значение из атрибута alt элемента переданного через параметр titleValue
-    cardElement.querySelector('.elements__title').textContent = titleValue;
-    cardElement.querySelector('.elements__heart').addEventListener('click', handleLikeButton);
-    cardElement.querySelector('.elements__trash').addEventListener('click', handleTrashButton);
-    cardImage.addEventListener('click', handleImagePopup);
-    return cardElement;
-}
-function renderCard(card) {
-    elementBlock.prepend(card);
-}
-function addCardPopup(evt) {
-    evt.preventDefault();
-    const card = createCard(srcInput.value, placeInput.value);
-    renderCard(card);
-    closePopup(popupAddCard);
-    placeInput.value = '';
-    srcInput.value = '';
-}
-function closePopupEsc(element, evt) {
-    if (evt.key === 'Escape') {
-        closePopup(element);
+//функция закрытия попапа при нажатии кнопки ESC
+function closePopupEsc(element, evt) { // передаем параметрами элемент (попап) и событие
+    if (evt.key === 'Escape') { // если ключ события = клавиша Escape
+        closePopup(element);// вызвать функцию закрытия попапа с параметром элемент (попап)
     }
-};
+}
+//функция закрытия попапа при клике на фон с параметром событие
 function closePopupOverlay(evt) {
-    if (evt.target === evt.currentTarget) {
-        closePopup(evt.currentTarget);
+    if (evt.target === evt.currentTarget) {//если цель события и элемент на который навешивается слушатель события равны
+        closePopup(evt.currentTarget);//вызвать функцию закрытия попапа с параметром элемент на который навешивается слушатель
     }
-};
+}
+//для каждого элемента массива initialCards запускаем стрелочную функцию
 initialCards.forEach((element) => {
-    const card = createCard(element.link, element.name);
-    renderCard(card);
+    renderCard(element);// запускаем функцию renderCard с параметром объявленной константы (вставляем карточки в блок)
 })
+//создаем слушатель кнопки редактирования профиля, который при клике по ней вызывает стрелочную функцию
 editButton.addEventListener('click', () => {
-    openPopup(popupProfile);
-    insertProfileValues();
+    openPopup(popupProfile);// открывает попап с помощью функции openPopup с параметром константы со значением попап профиля
+    insertProfileValues();// записываем в значения полей формы данные из карточки профиля с помощью функции insertProfileValues
 })
+//для каждого элемента псевдомассива в константе closeButtons вызываем стрелочную функцию с параметром элемент(кнопка)
 closeButtons.forEach((button) => {
-    button.addEventListener('click', (evt) => {
-        const popup = evt.target.closest('.popup');
-        closePopup(popup);
+    button.addEventListener('click', (evt) => {//каждому элементу добавить слушатель клика, вызывающий стрелочную функцию с параметром события
+        const popup = evt.target.closest('.popup');//объявляем константу popup и присваеваем ей значение ближайщего к цели события элемента с классом popup
+        closePopup(popup);//закрываем попап функцией closePopup с параметром созданной константы (попап)
     });
 });
-formProfileElement.addEventListener('submit', submitProfileForm);
-formElementCard.addEventListener('submit', addCardPopup);
-addButton.addEventListener('click', () => {
-    openPopup(popupAddCard)
-})
+formProfileElement.addEventListener('submit', submitProfileForm);//форме профиля добавляем слушатель на нажатие submit с функцией submitProfileForm
+formElementCard.addEventListener('submit', addCardPopup);//форме добавления карточки добавляем слушатель на нажатие submit с функцией addCardPopup
+addButton.addEventListener('click', () => {//кнопке добавления карточки добавляем слушатель на клик со стрелочной функцией
+    openPopup(popupAddCard);//вызываем функцию openPopup открытия попапа, передав параметром форму добавления карточки
+});
+//добавляем попапам слушатель на событие клик и вызывающий функцию closePopupOverlay закрытия попапа при клике на фон
 popupImage.addEventListener('click', closePopupOverlay);
 popupProfile.addEventListener('click', closePopupOverlay);
 popupAddCard.addEventListener('click', closePopupOverlay);
