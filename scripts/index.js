@@ -1,5 +1,6 @@
 import { initialCards } from "../utils/initialCards.js";// Импортируем массив с объектами карточек
 import { Card } from './Card.js';// Импортируем класс Card для создания новых карточек
+import { FormValidator } from "./FormValidator.js";
 const addButton = document.querySelector('.profile__add-button');// Находим кнопку добавить карточку и помещаем в константу addButton
 const editButton = document.querySelector('.profile__edit-button');// Находим кнопку редактировать профиль и помещаем в константу editButton
 const popupProfile = document.querySelector('.popup_type_profile');// Находим попап редактирования профиля и помещаем в константу popupProfile
@@ -14,6 +15,16 @@ const nameInput = popupProfile.querySelector('#name-card');// находим inp
 const jobInput = popupProfile.querySelector('#job');// находим input поле профессия в попапе редактирования профиля и помещаем в константу jobInput
 const placeInput = formElementCard.querySelector('#place-name');// находим input поле названия места в попапе добавления карточек и помещаем в константу placeInput
 const srcInput = formElementCard.querySelector('#place-url');// находим input поле ссылки на изображение в попапе добавления карточек и помещаем в константу srcInput
+const obj = {
+    formSelector: '.popup__form',//форма
+    inputSelector: '.popup__input',//поле ввода
+    submitButtonSelector: '.popup__button',//кнопка submit
+    inactiveButtonClass: 'popup__button_disabled',//класс неактивной кнопки
+    inputErrorClass: 'popup__input_type_error',//класс поля ввода с ошибкой
+    errorClass: 'popup__error_visible'//класс видимого поля ошибки
+}
+const formProfileValidator = new FormValidator(obj, formProfileElement);
+const formCardValidator = new FormValidator(obj, formElementCard);
 // Функция присвоения значениям полей имени и профессии попапа редактирования профиля содержимого блоков имени и профессии блока профиля
 function insertProfileValues() {
     nameInput.value = nameProfile.textContent;// присвоение имени
@@ -99,3 +110,5 @@ addButton.addEventListener('click', () => {//кнопке добавления �
 popupImage.addEventListener('click', closePopupOverlay);
 popupProfile.addEventListener('click', closePopupOverlay);
 popupAddCard.addEventListener('click', closePopupOverlay);
+formProfileValidator.enableValidation();
+formCardValidator.enableValidation();
