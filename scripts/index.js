@@ -36,15 +36,18 @@ export function openPopup(element) {
     document.addEventListener('keydown', (evt) => closePopupEsc(element, evt));//добавляем странице слушателя событий (нажатие клавишы, событие) - стрелочная функция - функция closePopupEsc с параметрами элемент и нажатая клавиша
 }
 function openProfilePopup() {
-    insertProfileValues();
     formProfileValidator.resetValidation();
+    insertProfileValues();
     openPopup(popupProfile);
+}
+function openCardAddForm() {
+    formCardValidator.resetValidation();
+    openPopup(popupAddCard);
 }
 // функция закрытия попап, получает параметр - элемент
 function closePopup(element) {
     const form = element.querySelector('.popup__form');// находим форму закрываемого попапа и записываем в контсанту form
     if (form !== null) {// Если форма была найдена (не попап с изображением)
-        form.reset();// обнуляем поля формы
         const errorMessage = element.querySelectorAll('.error');// находим все блоки с классом error в псевдомассив и помещаем в константу errorMessage
         errorMessage.forEach((message) => { //для каждого элемента псевдомассива errorMessage (параметр message)
             message.textContent = '';// меняем текстовое содержимое элемента на пустую строку (чистим ошибки)
@@ -107,7 +110,7 @@ closeButtons.forEach((button) => {
 formProfileElement.addEventListener('submit', submitProfileForm);//форме профиля добавляем слушатель на нажатие submit с функцией submitProfileForm
 formElementCard.addEventListener('submit', addCardPopup);//форме добавления карточки добавляем слушатель на нажатие submit с функцией addCardPopup
 addButton.addEventListener('click', () => {//кнопке добавления карточки добавляем слушатель на клик со стрелочной функцией
-    openPopup(popupAddCard);//вызываем функцию openPopup открытия попапа, передав параметром форму добавления карточки
+    openCardAddForm();//вызываем функцию openPopup открытия попапа, передав параметром форму добавления карточки
 });
 //добавляем попапам слушатель на событие клик и вызывающий функцию closePopupOverlay закрытия попапа при клике на фон
 popupImage.addEventListener('click', closePopupOverlay);

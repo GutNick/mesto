@@ -1,6 +1,5 @@
 export class FormValidator {
     constructor(obj, form) {
-        this._inputSelector = obj.inputSelector;
         this._submitButtonSelector = obj.submitButtonSelector;
         this._inactiveButtonClass = obj.inactiveButtonClass;
         this._inputErrorClass = obj.inputErrorClass;
@@ -29,11 +28,6 @@ export class FormValidator {
     _addListenersToInput(input) {
         input.addEventListener("input", (evt) => this._handleFieldValidation(evt));
     }
-
-    _findErrorContainer() {
-        this._errorContainer = this._form.querySelector(`#${this._inputSelector.id}-error`);
-    }
-
     enableValidation = () => {
         this._inputs.forEach((input) => this._addListenersToInput(input));
         this._form.addEventListener("input", () => this._toggleButton());
@@ -41,6 +35,6 @@ export class FormValidator {
     };
     resetValidation() {
         this._toggleButton();
-        this._inputs.forEach((input) => this._findErrorContainer(input));
+        this._form.reset();
     }
 }

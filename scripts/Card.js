@@ -15,7 +15,7 @@ export class Card {
         this._image = document.querySelector('.popup__image');
         this._image.src = evt.target.src;
         this._image.alt = evt.target.alt;
-        document.querySelector('.popup__caption').textContent = this._title;
+        document.querySelector('.popup__caption').textContent = evt.target.alt;
         openPopup(popupImage);
     }
     _setEventListeners() {
