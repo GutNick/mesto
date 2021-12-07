@@ -1,20 +1,11 @@
-const obj = {
-    formSelector: '.popup__form',//форма
-    inputSelector: '.popup__input',//поле ввода
-    submitButtonSelector: '.popup__button',//кнопка submit
-    inactiveButtonClass: 'popup__button_disabled',//класс неактивной кнопки
-    inputErrorClass: 'popup__input_type_error',//класс поля ввода с ошибкой
-}
-
 export class FormValidator {
     constructor(obj, form) {
-        this._formSelector = obj.formSelector;
         this._inputSelector = obj.inputSelector;
         this._submitButtonSelector = obj.submitButtonSelector;
         this._inactiveButtonClass = obj.inactiveButtonClass;
         this._inputErrorClass = obj.inputErrorClass;
         this._form = form
-        this._inputs = Array.from(this._form.querySelectorAll(this._formSelector));
+        this._inputs = Array.from(this._form.querySelectorAll(obj.inputSelector));
         this._button = this._form.querySelector(this._submitButtonSelector);
     }
 
@@ -35,14 +26,12 @@ export class FormValidator {
         this._button.classList.toggle(this._inactiveButtonClass, this._isFormInvalid);
     }
 
-    _addListenersToInput() {
-        this._inputSelector.addEventListener("input", (evt) => this._handleFieldValidation(evt));
+    _addListenersToInput(input) {
+        input.addEventListener("input", (evt) => this._handleFieldValidation(evt));
     }
 
-    _hideError() {
-        this._inputSelector.classList.remove(this._inputErrorClass);
+    _findErrorContainer() {
         this._errorContainer = this._form.querySelector(`#${this._inputSelector.id}-error`);
-        this._errorContainer.textContent = '';
     }
 
     enableValidation = () => {
@@ -52,6 +41,6 @@ export class FormValidator {
     };
     resetValidation() {
         this._toggleButton();
-        this._inputs.forEach((input) => this._hideError(input));
+        this._inputs.forEach((input) => this._findErrorContainer(input));
     }
 }
