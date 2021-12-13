@@ -31,6 +31,6 @@ export class Card {
         this._cardImage.alt = this._title;
         this._card.querySelector('.elements__title').textContent = this._title;
         this._setEventListeners();
-        return this._card
+        return this._card;
     }
 }

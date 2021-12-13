@@ -6,6 +6,7 @@ export class FormValidator {
         this._form = form;
         this._inputs = Array.from(this._form.querySelectorAll(obj.inputSelector));
         this._button = this._form.querySelector(this._submitButtonSelector);
+        this._errorContainers = Array.from(this._form.querySelectorAll(obj.errorContainer));
     }
 
     _handleFieldValidation(evt) {
@@ -35,9 +36,11 @@ export class FormValidator {
     };
     resetValidation() {
         this._toggleButton();
-        this._errorContainer = this._form.querySelectorAll('.error');// находим все блоки с классом error в псевдомассив и помещаем в константу errorContainer
-        this._errorContainer.forEach((message) => { //для каждого элемента псевдомассива errorContainer (параметр message)
-            message.textContent = '';// меняем текстовое содержимое элемента на пустую строку (чистим ошибки)
+        this._inputs.forEach((input) => {
+            input.classList.remove(this._inputErrorClass);
+        })
+        this._errorContainers.forEach((message) => {
+            message.textContent = '';
         })
         this._form.reset();
     }
