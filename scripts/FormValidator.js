@@ -35,8 +35,8 @@ export class FormValidator {
     };
     resetValidation() {
         this._toggleButton();
-        this._errorContainer = this._form.querySelectorAll('.error');// находим все блоки с классом error в псевдомассив и помещаем в константу errorMessage
-        this._errorContainer.forEach((message) => { //для каждого элемента псевдомассива errorMessage (параметр message)
+        this._errorContainer = this._form.querySelectorAll('.error');// находим все блоки с классом error в псевдомассив и помещаем в константу errorContainer
+        this._errorContainer.forEach((message) => { //для каждого элемента псевдомассива errorContainer (параметр message)
             message.textContent = '';// меняем текстовое содержимое элемента на пустую строку (чистим ошибки)
         })
         this._form.reset();

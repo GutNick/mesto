@@ -16,6 +16,7 @@ const jobInput = popupProfile.querySelector('#job');// находим input по
 const placeInput = formElementCard.querySelector('#place-name');// находим input поле названия места в попапе добавления карточек и помещаем в константу placeInput
 const srcInput = formElementCard.querySelector('#place-url');// находим input поле ссылки на изображение в попапе добавления карточек и помещаем в константу srcInput
 const template = document.querySelector('#card-template').content;
+const cardContainer = document.querySelector('.elements');
 const obj = {
     formSelector: '.popup__form',//форма
     inputSelector: '.popup__input',//поле ввода
@@ -63,7 +64,7 @@ function submitProfileForm(evt) { //принимает событие
 //функция вставки элемента переданного параметром card
 function renderCard(item) {
     const card = new Card(item, template).createCard()
-    document.querySelector('.elements').prepend(card);//вставляем переданный элемент в блок с карточками через константу elementBlock в начало списка с помощью метода prepend()
+    cardContainer.prepend(card);//вставляем переданный элемент в блок с карточками через константу elementBlock в начало списка с помощью метода prepend()
 }
 //Функция добавления карточки места из формы
 function addCardPopup(evt) {//принимает в параметры событие (нажатие submit)
