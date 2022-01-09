@@ -1,9 +1,0 @@
-.profile__edit-block {
-  display: flex;
-}
-
-@media screen and (max-width: 879px) {
-  .profile__edit-block {
-    justify-content: center;
-  }
-}
