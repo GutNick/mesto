@@ -109,7 +109,7 @@ const popupWithFormAddElement = new PopupWithForm('.popup_element',
 const userInfo = new UserInfo({
   name:'.profile__name',
   about:'.profile__description',
-  avatar: '.popup_avatar'
+  avatar: '.profile__avatar'
 })
 
 const popupWithFormProfile = new PopupWithForm('.popup_profile',
