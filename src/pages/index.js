@@ -33,6 +33,13 @@ const api = new Api({
 
 const popupWithDelete = new PopupWithDelete('.popup_deleteCard');
 const popupBigImage = new PopupWithImage(imgPopup, titlePopup, '.popup_image');
+api.getProfile()
+    .then((res) => {
+        userInfo.setUserInfo(res);
+    })
+    .catch((err) => {
+        alert(`Ошибка: ${err}`)
+    });
 function createdCard(item) {
   const card = new Card("f388b4796b25930c3825cd3c", item, templateElement,
     {
