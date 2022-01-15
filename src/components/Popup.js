@@ -27,4 +27,8 @@ export default class Popup {
           }
         })
     }
+
+    handleLoading(message) {
+      this._popup.querySelector('.popup__button').textContent = message;
+    }
 }

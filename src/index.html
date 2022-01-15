@@ -8,13 +8,16 @@
     <body class="root">
         <div class="root__wrapper">
             <header class="header">
-                <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип">
+                <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="логотип проекта Место">
             </header>
 
             <main class="main">
                 <section class="profile">
                     <div class="profile__container">
-                        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар">
+                      <div class="profile__wrapper-avatar">
+                        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="фото пользователя">
+                        <span class="profile__editAvatar"></span>
+                      </div>
 
                         <div class="profile__wrapper">
                             <div class="profile__info">
@@ -32,7 +35,7 @@
             </main>
 
             <footer class="footer">
-                <p class="footer__text">&#169; 2021 Mesto Russia</p>
+                <p class="footer__text">&#169; 2020 Mesto Russia</p>
             </footer>
         </div>
 
@@ -105,6 +108,38 @@
           </div>
         </div>
 
+        <div class="popup popup_avatar">
+          <div class="popup__container">
+            <h2 class="popup__title">Обновить аватар</h2>
+            <form class="popup__form" name="form-avatar" novalidate>
+              <label class="popup__label">
+                <input class="popup__field popup__field_input_name"
+                       id="popup__avatar"
+                       name="avatar"
+                       type="url"
+                       placeholder="Название"
+                       autocomplete="off"
+                       minlength="2"
+                       required>
+                <span id="popup__avatar-error" class="popup__error"></span>
+              </label>
+
+              <button class="popup__button" type="submit">Сохранить</button>
+            </form>
+            <button class="popup__button-close" type="button"></button>
+          </div>
+        </div>
+
+        <div class="popup popup_deleteCard">
+          <div class="popup__container">
+            <h2 class="popup__title">Вы уверены?</h2>
+            <form class="popup__form" name="form-deleteCard" novalidate>
+              <button class="popup__button" type="submit">Да</button>
+            </form>
+            <button class="popup__button-close" type="button"></button>
+          </div>
+        </div>
+
         <div class="popup popup_image">
           <div class="popup__wrapper">
             <img class="popup__img" src="#" alt="фотография попапа">
@@ -120,6 +155,7 @@
             <div class="element__wrapper">
               <h2 class="element__title"></h2>
               <button class="element__like" type="button"></button>
+              <p class="element__counter-like">0</p>
             </div>
           </article>
         </template>
