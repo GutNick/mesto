@@ -31,9 +31,10 @@ const api = new Api({
 });
 
 const userInfo = new UserInfo({
-    name:'.profile__name',
-    about:'.profile__description',
-    avatar: '.profile__avatar'})
+    name: '.profile__name',
+    about: '.profile__description',
+    avatar: '.profile__avatar'
+})
 
 api.getAllData()
     .then((data) => {
@@ -50,7 +51,7 @@ api.getAllData()
 
                     handleCardDelete: () => {
                         popupWithDelete.open();
-                        popupWithDelete.setHandleSubmit(function(){
+                        popupWithDelete.setHandleSubmit(function () {
                             api.deleteCard(card._id)
                                 .then(() => {
                                     card.handleCardRemove();
@@ -94,11 +95,12 @@ api.getAllData()
             renderer: (item) => {
                 cardList.addItem(createdCard(item))
             }
-        },'.elements');
+        }, '.elements');
 
         const popupWithFormAddElement = new PopupWithForm('.popup_element',
-            {submitRenderer: () => {
-                    const inputValue = popupWithFormAddElement.getInputValues();
+            {
+                submitRenderer: (formData) => {
+                    const inputValue = { elementName: formData.elementName, link: formData.link };
                     api.setCard(inputValue)
                         .then((item) => {
                             cardList.addItem(createdCard(item));
@@ -110,7 +112,8 @@ api.getAllData()
                         .finally(() => {
                             popupWithFormAddElement.handleLoading('Создать');
                         });
-                }})
+                }
+            })
 
         popupWithFormAddElement.setEventListeners();
 
@@ -133,8 +136,9 @@ const popupWithDelete = new PopupWithDelete('.popup_deleteCard');
 const popupBigImage = new PopupWithImage(imgPopup, titlePopup, '.popup_image');
 
 const popupWithFormProfile = new PopupWithForm('.popup_profile',
-    {submitRenderer: () => {
-            const inputValue = popupWithFormProfile.getInputValues();
+    {
+        submitRenderer: (formData) => {
+            const inputValue = { userName: formData.userName, userJob: formData.userJob };
             api.setUserInfo(inputValue)
                 .then((data) => {
                     userInfo.setUserInfo(data);
@@ -150,8 +154,9 @@ const popupWithFormProfile = new PopupWithForm('.popup_profile',
     })
 
 const popupAvatar = new PopupWithForm('.popup_avatar',
-    {submitRenderer: () => {
-            const inputValue = popupAvatar.getInputValues();
+    {
+        submitRenderer: (formData) => {
+            const inputValue = { avatar: formData.avatar };
             api.changeAvatar(inputValue)
                 .then((data) => {
                     userInfo.setUserInfo(data);
@@ -175,7 +180,7 @@ buttonOpenPopupProfile.addEventListener('click', () => {
     const userData = userInfo.getUserInfo();
     inputList.forEach((input) => {
         input.value = userData.name
-        if(input.name === 'userJob') {
+        if (input.name === 'userJob') {
             input.value = userData.about
         }
     });
