@@ -4,7 +4,8 @@ export default class FormValidator {
         this._formElement = formElement;
         this._inputList = this._formElement.querySelectorAll(this._config.inputSelector);
         this._buttonElement = this._formElement.querySelector(this._config.submitButtonSelector);
-        this._inputErrorClass = this._formElement.querySelector(this._config.inputErrorClass);
+        this._inputErrorClass = this._config.inputErrorClass;
+        this._errorContainersClass = document.querySelectorAll(this._config.errorContainerClass);
     }
 
     _handleFieldValidation(evt, inputErrorClass) {
@@ -18,7 +19,7 @@ export default class FormValidator {
     _setEventListener() {
         this._inputList.forEach((inputElement) => {
             inputElement.addEventListener('input', (evt) => {
-            this._handleFieldValidation(evt, this._inputErrorClass);
+                this._handleFieldValidation(evt, this._inputErrorClass);
             })
         });
 
@@ -27,7 +28,7 @@ export default class FormValidator {
         })
     }
 
-   _handleFormInput() {
+    _handleFormInput() {
         this._toggleButton();
     }
 
@@ -43,10 +44,13 @@ export default class FormValidator {
     }
 
     resetValidation() {
-    this._toggleButton();
-
-    this._inputList.forEach((inputElement) => {
-      inputElement.setCustomValidity('');
-    });
-  }
+        this._toggleButton();
+        this._inputList.forEach((inputElement) => {
+            inputElement.setCustomValidity('');
+            inputElement.classList.remove(this._inputErrorClass);
+        });
+        this._errorContainersClass.forEach((errorElement) => {
+            errorElement.textContent = '';
+        });
+    }
 }

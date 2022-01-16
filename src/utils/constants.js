@@ -17,4 +17,5 @@ export const config = {
   inputSelector: '.popup__field',
   submitButtonSelector: '.popup__button',
   inputErrorClass: 'popup__field_type_error',
+  errorContainerClass: '.popup__error',
 }

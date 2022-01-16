@@ -7,12 +7,14 @@ export default class PopupWithForm extends Popup {
         this._inputList = this._popup.querySelectorAll('.popup__field');
         this._formPopup =  this._popup.querySelector('.popup__form');
     }
-
     getInputValues() {
-      this._formValues = {};
-      this._inputList.forEach(input => this._formValues[input.name] = input.value);
+        const data = {};
 
-      return this._formValues;
+        this._inputList.forEach((input) => {
+            data[input.name] = input.value;
+        });
+
+        return data;
     }
 
     setEventListeners() {
@@ -20,7 +22,7 @@ export default class PopupWithForm extends Popup {
         this._formPopup.addEventListener('submit', (evt) => {
           evt.preventDefault();
           this.handleLoading('Сохранение...');
-          this._submitRenderer(this.getInputValues());
+            this._submitRenderer(this.getInputValues());
         });
     }
 
