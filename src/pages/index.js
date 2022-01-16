@@ -98,6 +98,7 @@ api.getAllData()
 
         const popupWithFormAddElement = new PopupWithForm('.popup_element',
             {submitRenderer: () => {
+                //К сожалению я не понял передать данные используя  getInputValues() как приватный метод
                     const inputValue = popupWithFormAddElement.getInputValues();
                     api.setCard(inputValue)
                         .then((item) => {
