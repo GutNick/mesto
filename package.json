@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "core-js": "^3.20.2",
+    "follow-redirects": "^1.14.7",
     "node-forge": "^1.2.0"
   }
 }
